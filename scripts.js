@@ -72,8 +72,8 @@ function editCardContent(card, snack) {
   cardList.innerHTML= 
   "<li> type: "+ snack.type+"</li>"+"<li> Rating: "+ snack.rating +"</li> "+"<li> store:"+ snack.store+"</li>";
 }
-//show cards when page loads
 
+let deletedSnack=null;
 
   //button message
 function quoteAlert(){
@@ -82,8 +82,17 @@ function quoteAlert(){
  
 //removes the last card
 function removeLastCard() {
-  snacks.pop(); // Remove last item in titles array
+  deletedSnack = snacks.pop(); // Remove last item in titles array
   showCards(); // Call showCards again to refresh
+}
+function addLastCard(){
+  if (deletedSnack !==null){
+    snacks.push(deletedSnack);
+    deletedSnack= null;
+    showCards();
+  }else{
+    alert("No snack to add back.");
+  }
 }
 
 showCards();
