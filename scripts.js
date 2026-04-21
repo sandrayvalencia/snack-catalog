@@ -22,22 +22,24 @@
  *    with the string you added to the array, but a broken image.
  *
  */
+// Snacks data images
+const CHIP_URL = "https://thumb.ac-illust.com/58/58bc88b421cb766240d7ae6193a8e165_t.jpeg";
+const COOKIE_URL = "https://img.freepik.com/free-photo/delicious-cookies-arrangement_23-2150707201.jpg?semt=ais_hybrid&w=740&q=80";
+const CHOCOLATE_URL = "https://t4.ftcdn.net/jpg/02/04/31/93/360_F_204319311_NwspQuun2GWdO5KnA8Grgg5CpPczQXPd.jpg";
+const CANDY_URL ="https://cdn.pixabay.com/photo/2012/06/27/15/02/candy-50838_1280.jpg";
+const ICECREAM_URL ="https://cdn.pixabay.com/photo/2016/03/22/00/59/ice-1271986_640.jpg";
+const POPCORN_URL ="https://cdn.pixabay.com/photo/2015/12/09/17/12/new-years-eve-1085072_1280.jpg"; 
 
-const FRESH_PRINCE_URL =
-  "https://upload.wikimedia.org/wikipedia/en/3/33/Fresh_Prince_S1_DVD.jpg";
-const CURB_POSTER_URL =
-  "https://m.media-amazon.com/images/M/MV5BZDY1ZGM4OGItMWMyNS00MDAyLWE2Y2MtZTFhMTU0MGI5ZDFlXkEyXkFqcGdeQXVyMDc5ODIzMw@@._V1_FMjpg_UX1000_.jpg";
-const EAST_LOS_HIGH_POSTER_URL =
-  "https://static.wikia.nocookie.net/hulu/images/6/64/East_Los_High.jpg";
-
-// This is an array of strings (TV show titles)
-let titles = [
-  "Fresh Prince of Bel Air",
-  "Curb Your Enthusiasm",
-  "East Los High",
+// This is an array of snacks objects
+let snacks = [
+  {name:"Chips", type: "salty",rating: "5/5", store: "wholesfoods/sprouds",image:CHIP_URL},
+  {name:"Cookie", type: "sweet",rating: "5/5", store: "wholesfoods/sprouds",image:COOKIE_URL},
+  {name:"Chocolate", type: "semi-sweet",rating: "5/5", store: "wholesfoods/sprouds",image: CHOCOLATE_URL},
+  {name:"Candy", type: "sugar cane",rating: "5/5", store: "wholesfoods/sprouds",image: CANDY_URL},
+  {name:"Icecream", type: "sweet",rating: "5/5", store: "wholesfoods/sprouds", image: ICECREAM_URL},
+  {name:"Popcorn", type: "salty",rating: "5/5", store: "wholesfoods/sprouds", image: POPCORN_URL},
 ];
-// Your final submission should have much more data than this, and
-// you should use more than just an array of strings to store it all.
+
 
 // This function adds cards the page to display the data in the array
 function showCards() {
@@ -45,53 +47,43 @@ function showCards() {
   cardContainer.innerHTML = "";
   const templateCard = document.querySelector(".card");
 
-  for (let i = 0; i < titles.length; i++) {
-    let title = titles[i];
+  for (let i = 0; i < snacks.length; i++) {
+    let snack = snacks[i];
 
-    // This part of the code doesn't scale very well! After you add your
-    // own data, you'll need to do something totally different here.
-    let imageURL = "";
-    if (i == 0) {
-      imageURL = FRESH_PRINCE_URL;
-    } else if (i == 1) {
-      imageURL = CURB_POSTER_URL;
-    } else if (i == 2) {
-      imageURL = EAST_LOS_HIGH_POSTER_URL;
-    }
 
     const nextCard = templateCard.cloneNode(true); // Copy the template card
-    editCardContent(nextCard, title, imageURL); // Edit title and image
+    editCardContent(nextCard, snack); // Edit title and image
     cardContainer.appendChild(nextCard); // Add new card to the container
   }
 }
 
-function editCardContent(card, newTitle, newImageURL) {
+//This function edits each card
+function editCardContent(card, snack) {
   card.style.display = "block";
 
   const cardHeader = card.querySelector("h2");
-  cardHeader.textContent = newTitle;
+  cardHeader.textContent = snack.name;
 
   const cardImage = card.querySelector("img");
-  cardImage.src = newImageURL;
-  cardImage.alt = newTitle + " Poster";
+  cardImage.src = snack.image;
+  cardImage.alt = snack.name + " snack image"; 
 
-  // You can use console.log to help you debug!
-  // View the output by right clicking on your website,
-  // select "Inspect", then click on the "Console" tab
-  console.log("new card:", newTitle, "- html: ", card);
+  const cardList=card.querySelector("ul");
+  cardList.innerHTML= 
+  "<li> type: "+ snack.type+"</li>"+"<li> Rating: "+ snack.rating +"</li> "+"<li> store:"+ snack.store+"</li>";
 }
+//show cards when page loads
 
-// This calls the addCards() function when the page is first loaded
-document.addEventListener("DOMContentLoaded", showCards);
 
-function quoteAlert() {
-  console.log("Button Clicked!");
-  alert(
-    "I guess I can kiss heaven goodbye, because it got to be a sin to look this good!",
-  );
+  //button message
+function quoteAlert(){
+  alert("Snacks make everything better!");
 }
-
+ 
+//removes the last card
 function removeLastCard() {
-  titles.pop(); // Remove last item in titles array
+  snacks.pop(); // Remove last item in titles array
   showCards(); // Call showCards again to refresh
 }
+
+showCards();
